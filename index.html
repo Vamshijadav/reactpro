@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login System</title>
+</head>
+<body>
+
+<h2>Register</h2>
+<input type="text" id="reg_user" placeholder="Username">
+<input type="password" id="reg_pass" placeholder="Password">
+<button onclick="register()">Register</button>
+
+<h2>Login</h2>
+<input type="text" id="log_user" placeholder="Username">
+<input type="password" id="log_pass" placeholder="Password">
+<button onclick="login()">Login</button>
+
+<p id="msg"></p>
+
+<script>
+async function register() {
+  const username = document.getElementById("reg_user").value;
+  const password = document.getElementById("reg_pass").value;
+
+  const res = await fetch("http://localhost:5000/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  });
+
+  const data = await res.json();
+  document.getElementById("msg").innerText = data.msg;
+}
+
+async function login() {
+  const username = document.getElementById("log_user").value;
+  const password = document.getElementById("log_pass").value;
+
+  const res = await fetch("http://localhost:5000/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  });
+
+  const data = await res.json();
+  document.getElementById("msg").innerText = data.msg;
+}
+</script>
+
+</body>
+</html>
